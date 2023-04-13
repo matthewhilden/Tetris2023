@@ -1,0 +1,40 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "Debug",
+			"command": "C:\\MinGW\\bin\\g++.exe",
+			"args": [
+				"-g",
+				"${workspaceFolder}\\src\\Main.cpp",
+				"${workspaceFolder}\\src\\Board.cpp",
+				"${workspaceFolder}\\src\\GameBoardPanel.cpp",
+				"-o",
+				"${workspaceFolder}\\build\\debug\\${fileBasenameNoExtension}.exe",
+				"-I",
+				"${workspaceFolder}\\include",
+				"-I",
+				"C:\\Libraries\\wxWidgets-3.0.5\\include",
+				"-I",
+				"C:\\Libraries\\wxWidgets-3.0.5\\lib\\gcc_dll\\mswud",
+				"-L",
+				"C:\\Libraries\\wxWidgets-3.0.5\\lib\\gcc_dll",
+				"-l",
+				"wxmsw30ud_core",
+				"-l",
+				"wxbase30ud",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+		}
+	]
+}
