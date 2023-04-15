@@ -9,7 +9,7 @@
 				"-g",
 				"${workspaceFolder}\\src\\Main.cpp",
 				"${workspaceFolder}\\src\\Board.cpp",
-				"${workspaceFolder}\\src\\GameBoardPanel.cpp",
+				"${workspaceFolder}\\src\\GameBoardFrame.cpp",
 				"-o",
 				"${workspaceFolder}\\build\\debug\\${fileBasenameNoExtension}.exe",
 				"-I",

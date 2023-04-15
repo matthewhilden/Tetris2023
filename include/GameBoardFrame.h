@@ -1,5 +1,4 @@
 // This File maintains the header for the GameBoardPanel class object
-// A GameBoardPanel maintains the panel of the GUI responsible for displaying the current game and board state
 
 #pragma once
 
@@ -26,18 +25,17 @@ const int PANEL_BOARD_CELL_WIDTH = PANEL_BOARD_WIDTH / BOARD_WIDTH;
 const int PANEL_BOARD_X_OFFSET = (FRAME_WIDTH / 2) - (PANEL_BOARD_WIDTH);
 const int PANEL_BOARD_Y_OFFSET = (FRAME_HEIGHT / 2) - (PANEL_BOARD_HEIGHT);
 
-class GameBoardPanel: public wxPanel
+class GameBoardFrame : public wxFrame
 {
     public:
 
-        GameBoardPanel();
+        GameBoardFrame();
 
         DECLARE_EVENT_TABLE();
 
     private:
 
         Board game_board;
-        //Tetromino * active_piece;
 
         void OnPaint(wxPaintEvent & event);
 };

@@ -1,36 +1,29 @@
 // This File maintains the implementation for the TetrisApp class
 // The TetrisApp defines the entry point for the Application and launches the program/GUI.
 
-#include "GameBoardPanel.h"
+#include <wx/wx.h>
+#include <wx/wxprec.h>
+
+#include "Board.h"
+#include "GameBoardFrame.h"
  
 class TetrisApp : public wxApp
 {
     public:
 
         virtual bool OnInit();
-    
-    private:
 
-        GameBoardPanel * topLevelFrame;
+    private:
 };
  
 wxIMPLEMENT_APP(TetrisApp);
- 
+
+wxBEGIN_EVENT_TABLE(GameBoardFrame, wxFrame)
+    EVT_PAINT(GameBoardFrame::OnPaint)
+wxEND_EVENT_TABLE()
+
 bool TetrisApp::OnInit()
 {
-    // ** PROBABLY WANT TO MOVE SIZER INTO TETRISFRAME CLASS AND ORGANIZE INSIDE THERE **
-
-    topLevelFrame = new GameBoardPanel();
-    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-
-/*
-    // add the TetrisFrame instance to the sizer
-    // ** I THINK THIS IS WHERE WE ADD DIFFERENT PANEL TYPES **
-    sizer->Add(frame, 1, wxEXPAND | wxALL, 0);
-*/
-    topLevelFrame->SetSizer(sizer);
-
-    topLevelFrame->Show(true);
-
+    GameBoardFrame * topLevelFrame = new GameBoardFrame();
     return true;
 }
