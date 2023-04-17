@@ -18,8 +18,9 @@ class Board
         int get_cell(int column, int row);
         int set_cell(int column, int row, int value);
         bool is_cell_empty(int column, int row);
+        void empty_board();
 
     private:
 
-        int all_cells[BOARD_WIDTH][BOARD_HEIGHT + BOARD_HEIGHT_BUFFER];
+        int allCells[BOARD_WIDTH][BOARD_HEIGHT + BOARD_HEIGHT_BUFFER];
 };

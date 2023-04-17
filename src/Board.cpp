@@ -11,7 +11,7 @@ Board::Board()
     {
         for (int row = 0; row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER; row++)
         {
-            all_cells[column][row] = 0;
+            allCells[column][row] = 0;
         }
     }
 }
@@ -29,7 +29,7 @@ int Board::get_cell(int column, int row)
         }
         else
         {
-            return all_cells[column][row];
+            return allCells[column][row];
         }
     }
     catch(const std::exception & e)
@@ -51,11 +51,24 @@ bool Board::is_cell_empty(int column, int row)
         }
         else
         {
-            return all_cells[column][row] == 0;
+            return allCells[column][row] == 0;
         }
     }
     catch(const std::exception & e)
     {
         std::cerr << e.what() << '\n';
     }   
+}
+
+// Empty contents of entire board
+// Sets each and every cell of the board to its default value of 0
+void Board::empty_board()
+{
+   for (int column = 0; column < BOARD_WIDTH; column++)
+    {
+        for (int row = 0; row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER; row++)
+        {
+            allCells[column][row] = 0;
+        }
+    }
 }

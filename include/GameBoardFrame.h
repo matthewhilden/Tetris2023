@@ -10,7 +10,7 @@
 //const int KEY_CODE_ROTATE_CW = ??
 //const int KEY_CODE_ROTATE_CCW = ??
 
-const bool GAME_BOARD_SPAWN = false;
+const bool GAME_BOARD_SPAWN = true;
 
 const wxColour ORANGE = wxColor(255, 165, 0);
 const wxColour PURPLE = wxColour(128, 0, 128);
@@ -42,8 +42,8 @@ class GameBoardFrame : public wxFrame
 
     private:
 
-        bool visible_spawn;
-        Board game_board;
+        bool visibleSpawn;
+        Board gameBoard;
 
         void OnPaint(wxPaintEvent & event);
 };

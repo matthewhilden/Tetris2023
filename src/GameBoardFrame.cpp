@@ -2,7 +2,9 @@
 
 #include "GameBoardFrame.h"
 
-GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible_spawn(GAME_BOARD_SPAWN)
+// Default constructor
+// Sets size of GameBoardFrame window
+GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visibleSpawn(GAME_BOARD_SPAWN)
 {
     // ** NEED TO HANDLE WINDOW RESIZING **
 
@@ -10,6 +12,8 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     Show(true);
 }
 
+// Full paint functionality for drawing the entire board and contents from blank
+// Does a full redraw of the board
 void GameBoardFrame::OnPaint(wxPaintEvent & event)
 {
     wxPaintDC dc(this);
@@ -18,14 +22,13 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
     dc.SetBrush(*wxWHITE_BRUSH);
     dc.DrawRectangle(wxRect(FRAME_BOARD_X_OFFSET, FRAME_BOARD_Y_OFFSET, FRAME_BOARD_WIDTH, FRAME_BOARD_HEIGHT));
 
-    // Draw cells
     for (int column = 0; column < BOARD_WIDTH; column++)
     {
         for (int row = BOARD_HEIGHT - 1; row >= 0; row--)
         {
             int x_coord = FRAME_BOARD_X_OFFSET + column * FRAME_BOARD_CELL_WIDTH;
             int y_coord = FRAME_BOARD_Y_OFFSET + row * FRAME_BOARD_CELL_HEIGHT;
-            int cell_value = game_board.get_cell(column, row);
+            int cell_value = gameBoard.get_cell(column, row);
             switch (cell_value)
             {
                 case 1  :   dc.SetBrush(*wxCYAN_BRUSH);
@@ -56,7 +59,7 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
                             dc.SetPen(*wxGREY_PEN);
                             dc.DrawRectangle(wxRect(x_coord, y_coord, FRAME_BOARD_CELL_WIDTH, FRAME_BOARD_CELL_HEIGHT));
                             break;
-                default :   dc.SetBrush(*wxTRANSPARENT_BRUSH);
+                default :   dc.SetBrush(*wxTRANSPARENT_BRUSH);      // For testing purposes
                             dc.SetPen(*wxGREY_PEN);
                             dc.DrawRectangle(wxRect(x_coord, y_coord, FRAME_BOARD_CELL_WIDTH, FRAME_BOARD_CELL_HEIGHT));
             }
@@ -66,7 +69,7 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
     dc.SetBrush(*wxTRANSPARENT_BRUSH);
     dc.DrawRectangle(wxRect(FRAME_BOARD_X_OFFSET, FRAME_BOARD_Y_OFFSET, FRAME_BOARD_WIDTH, FRAME_BOARD_HEIGHT));
 
-    if (visible_spawn)
+    if (visibleSpawn)  // Print spawn rows if desired
     {
         int spawn_y_height = BOARD_HEIGHT_BUFFER * FRAME_BOARD_CELL_HEIGHT;
         int spawn_y_offset = FRAME_BOARD_Y_OFFSET - spawn_y_height;
@@ -75,14 +78,13 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
         dc.SetBrush(*wxWHITE_BRUSH);
         dc.DrawRectangle(wxRect(FRAME_BOARD_X_OFFSET, spawn_y_offset, FRAME_BOARD_WIDTH, spawn_y_height));
 
-        // Draw cells
         for (int column = 0; column < BOARD_WIDTH; column++)
         {
             for (int row = BOARD_HEIGHT_BUFFER; row > 0; row--)
             {
                 int x_coord = FRAME_BOARD_X_OFFSET + (column * FRAME_BOARD_CELL_WIDTH);
                 int y_coord = FRAME_BOARD_Y_OFFSET - (row * FRAME_BOARD_CELL_HEIGHT);
-                int cell_value = game_board.get_cell(column, row + BOARD_HEIGHT - 1);
+                int cell_value = gameBoard.get_cell(column, row + BOARD_HEIGHT - 1);
                 switch (cell_value)
                 {
                     case 1  :   dc.SetBrush(*wxCYAN_BRUSH);
@@ -113,7 +115,7 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
                                 dc.SetPen(*wxGREY_PEN);
                                 dc.DrawRectangle(wxRect(x_coord, y_coord, FRAME_BOARD_CELL_WIDTH, FRAME_BOARD_CELL_HEIGHT));
                                 break;
-                    default :   dc.SetBrush(*wxTRANSPARENT_BRUSH);
+                    default :   dc.SetBrush(*wxTRANSPARENT_BRUSH);      // For testing purposes
                                 dc.SetPen(*wxGREY_PEN);
                                 dc.DrawRectangle(wxRect(x_coord, y_coord, FRAME_BOARD_CELL_WIDTH, FRAME_BOARD_CELL_HEIGHT));
                 }
