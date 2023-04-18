@@ -11,7 +11,7 @@ Board::Board()
     {
         for (int row = 0; row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER; row++)
         {
-            allCells[column][row] = 0;
+            allCells[column][row] = EMPTY_CELL;
         }
     }
 }
@@ -21,6 +21,9 @@ Board::Board()
 // Throws out_of_range exception if X-Y coordinate is outside boundary of board
 int Board::get_cell(int column, int row)
 {
+    // ** DETERMINE WHETHER OR NOT BOUNDARY CONDITIONS SHOULD THROW ERRORS **
+    // IF WE CHECK OUTSIDE BOUNDARY OF BOARD WE SHOULD JUST RETURN -1 AND ASSUME COLLISION
+
     try
     {
         if (column < 0 || column >= BOARD_WIDTH || row < 0 || row >= BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
@@ -30,6 +33,26 @@ int Board::get_cell(int column, int row)
         else
         {
             return allCells[column][row];
+        }
+    }
+    catch(const std::exception & e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+int Board::set_cell(int column, int row, int value)
+{
+    try
+    {
+        if (column < 0 || column >= BOARD_WIDTH || row < 0 || row >= BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
+        {
+            throw std::out_of_range("Out of Range of Board!");
+        }
+        else
+        {
+            allCells[column][row] = value;
+            return value;
         }
     }
     catch(const std::exception & e)
@@ -51,7 +74,7 @@ bool Board::is_cell_empty(int column, int row)
         }
         else
         {
-            return allCells[column][row] == 0;
+            return allCells[column][row] == EMPTY_CELL;
         }
     }
     catch(const std::exception & e)
@@ -68,7 +91,7 @@ void Board::empty_board()
     {
         for (int row = 0; row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER; row++)
         {
-            allCells[column][row] = 0;
+            allCells[column][row] = EMPTY_CELL;
         }
     }
 }

@@ -9,6 +9,8 @@ const int BOARD_WIDTH = 10;
 const int BOARD_HEIGHT = 20;
 const int BOARD_HEIGHT_BUFFER = 2;      // Non-visible rows of the board (spawn locations)
 
+const int EMPTY_CELL = 0;
+
 class Board
 {
     public:

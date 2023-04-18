@@ -6,9 +6,11 @@
 #include <wx/wxprec.h>
 
 #include "Board.h"
+#include "I.h"
+#include "Tetromino.h"
 
-//const int KEY_CODE_ROTATE_CW = ??
-//const int KEY_CODE_ROTATE_CCW = ??
+const int KEY_CODE_ROTATE_CW = WXK_RIGHT;
+const int KEY_CODE_ROTATE_CCW = WXK_LEFT;
 
 const bool GAME_BOARD_SPAWN = true;
 
@@ -38,12 +40,16 @@ class GameBoardFrame : public wxFrame
 
         GameBoardFrame();
 
+        void place_active_piece();
+        void remove_active_piece();
+
         DECLARE_EVENT_TABLE();
 
     private:
 
         bool visibleSpawn;
         Board gameBoard;
+        Tetromino * activePiece;
 
         void OnPaint(wxPaintEvent & event);
 };

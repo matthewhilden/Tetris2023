@@ -8,6 +8,10 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
 {
     // ** NEED TO HANDLE WINDOW RESIZING **
 
+    // Place Starting Piece
+    //activePiece = new I();
+    //place_active_piece();
+
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);
     Show(true);
 }
@@ -24,10 +28,10 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
 
     for (int column = 0; column < BOARD_WIDTH; column++)
     {
-        for (int row = BOARD_HEIGHT - 1; row >= 0; row--)
+        for (int row = 0; row < BOARD_HEIGHT; row++)
         {
             int x_coord = FRAME_BOARD_X_OFFSET + column * FRAME_BOARD_CELL_WIDTH;
-            int y_coord = FRAME_BOARD_Y_OFFSET + row * FRAME_BOARD_CELL_HEIGHT;
+            int y_coord = FRAME_BOARD_Y_OFFSET + (BOARD_HEIGHT - 1 - row) * FRAME_BOARD_CELL_HEIGHT;
             int cell_value = gameBoard.get_cell(column, row);
             switch (cell_value)
             {
@@ -125,4 +129,33 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
         dc.SetBrush(*wxTRANSPARENT_BRUSH);
         dc.DrawRectangle(wxRect(FRAME_BOARD_X_OFFSET, spawn_y_offset, FRAME_BOARD_WIDTH, spawn_y_height));  
     }
+}
+
+// Place active piece on the Game Board
+void GameBoardFrame::place_active_piece()
+{
+    int type = activePiece->get_type();
+    std::pair<int, int> pointOne = activePiece->get_point_one();
+    std::pair<int, int> pointTwo = activePiece->get_point_two();
+    std::pair<int, int> pointThree = activePiece->get_point_three();
+    std::pair<int, int> pointFour = activePiece->get_point_four();
+
+    gameBoard.set_cell(pointOne.first, pointOne.second, type);
+    gameBoard.set_cell(pointTwo.first, pointTwo.second, type);
+    gameBoard.set_cell(pointThree.first, pointThree.second, type);
+    gameBoard.set_cell(pointFour.first, pointFour.second, type);
+}
+
+// Remove active piece on the Game Board
+void GameBoardFrame::remove_active_piece()
+{
+    std::pair<int, int> pointOne = activePiece->get_point_one();
+    std::pair<int, int> pointTwo = activePiece->get_point_two();
+    std::pair<int, int> pointThree = activePiece->get_point_three();
+    std::pair<int, int> pointFour = activePiece->get_point_four();
+
+    gameBoard.set_cell(pointOne.first, pointOne.second, 0);
+    gameBoard.set_cell(pointTwo.first, pointTwo.second, 0);
+    gameBoard.set_cell(pointThree.first, pointThree.second, 0);
+    gameBoard.set_cell(pointFour.first, pointFour.second, 0);   
 }
