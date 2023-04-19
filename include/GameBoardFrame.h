@@ -11,6 +11,11 @@
 
 const int KEY_CODE_ROTATE_CW = WXK_RIGHT;
 const int KEY_CODE_ROTATE_CCW = WXK_LEFT;
+const int KEY_CODE_W = 87;
+const int KEY_CODE_A = 65;
+const int KEY_CODE_S = 83;
+const int KEY_CODE_D = 68;
+
 
 const bool GAME_BOARD_SPAWN = true;
 
@@ -52,4 +57,8 @@ class GameBoardFrame : public wxFrame
         Tetromino * activePiece;
 
         void OnPaint(wxPaintEvent & event);
+        void OnKeyDown(wxKeyEvent & event);
+
+        void translate_active_piece(int x, int y);
+        void rotate_active_piece(int direction);
 };

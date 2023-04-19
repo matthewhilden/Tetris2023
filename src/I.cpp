@@ -33,38 +33,58 @@ bool I::rotate_piece(int direction)
         switch(rotationState)
         {
             case 0  :   pointOne.first += 2;    pointOne.second += 1;
-                        pointTwo.first += 1;    pointTwo.second += 0;
-                        pointThree.first += 0;    pointThree.second -= 1;
+                        pointTwo.first += 1;
+                        pointThree.second -= 1;
                         pointFour.first -= 1;    pointFour.second -= 2;
-                        rotationState++;
+                        rotationState = 1;
                         break;
             case 1  :   pointOne.first += 1;    pointOne.second -= 2;
-                        pointTwo.first += 0;    pointTwo.second -= 1;
-                        pointThree.first -= 1;    pointThree.second -= 0;
+                        pointTwo.second -= 1;
+                        pointThree.first -= 1;
                         pointFour.first -= 2;    pointFour.second += 1;
-                        rotationState++;
+                        rotationState = 2;
                         break;
             case 2  :   pointOne.first -= 2;    pointOne.second -= 1;
-                        pointTwo.first -= 1;    pointTwo.second -= 0;
-                        pointThree.first -= 0;    pointThree.second += 1;
+                        pointTwo.first -= 1;
+                        pointThree.second += 1;
                         pointFour.first += 1;    pointFour.second += 2;
-                        rotationState++;
+                        rotationState = 3;
                         break;
             case 3  :   pointOne.first -= 1;    pointOne.second += 2;
-                        pointTwo.first -= 0;    pointTwo.second += 1;
-                        pointThree.first += 1;    pointThree.second += 0;
+                        pointTwo.second += 1;
+                        pointThree.first += 1;
                         pointFour.first += 2;    pointFour.second -= 1;
-                        rotationState == 0;
+                        rotationState = 0;
         }
     }
     else if (direction == COUNTERCLOCKWISE)
     {
         switch(rotationState)
         {
-            case 0  :   break;
-            case 1  :   break;
-            case 2  :   break;
-            case 3  :   break;
+            case 0  :   pointOne.first += 1;    pointOne.second -= 2;
+                        pointTwo.second -= 1;
+                        pointThree.first -= 1;
+                        pointFour.first -= 2;    pointFour.second += 1;
+                        rotationState = 3;
+                        break;
+            case 1  :   pointOne.first -= 2;    pointOne.second -= 1;
+                        pointTwo.first -= 1;
+                        pointThree.second += 1;
+                        pointFour.first += 1;    pointFour.second += 2;
+                        rotationState = 0;
+                        break;
+            case 2  :   pointOne.first -= 1;    pointOne.second += 2;
+                        pointTwo.second += 1;
+                        pointThree.first += 1;
+                        pointFour.first += 2;    pointFour.second -= 1;
+                        rotationState = 1;
+                        break;
+            case 3  :   pointOne.first += 2;    pointOne.second += 1;
+                        pointTwo.first += 1;
+                        pointThree.second -= 1;
+                        pointFour.first -= 1;    pointFour.second -= 2;
+                        rotationState = 2;
+                        break;
         }
     }
     return true;

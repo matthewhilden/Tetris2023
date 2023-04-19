@@ -20,6 +20,7 @@ wxIMPLEMENT_APP(TetrisApp);
 
 wxBEGIN_EVENT_TABLE(GameBoardFrame, wxFrame)
     EVT_PAINT(GameBoardFrame::OnPaint)
+    EVT_KEY_DOWN(GameBoardFrame::OnKeyDown)
 wxEND_EVENT_TABLE()
 
 bool TetrisApp::OnInit()

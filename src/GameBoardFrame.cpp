@@ -9,8 +9,8 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     // ** NEED TO HANDLE WINDOW RESIZING **
 
     // Place Starting Piece
-    //activePiece = new I();
-    //place_active_piece();
+    activePiece = new I();
+    place_active_piece();
 
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);
     Show(true);
@@ -131,6 +131,51 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
     }
 }
 
+void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
+{
+    int keyCode = event.GetKeyCode();
+
+    // ** SWITCH STATEMENT **
+    
+    if (keyCode == KEY_CODE_ROTATE_CW)
+    {
+        remove_active_piece();
+        activePiece->rotate_piece(CLOCKWISE);
+        place_active_piece();
+    }
+    else if (keyCode == KEY_CODE_ROTATE_CCW)
+    {
+        remove_active_piece();
+        activePiece->rotate_piece(COUNTERCLOCKWISE);
+        place_active_piece();
+    }
+    else if (keyCode == KEY_CODE_W)
+    {
+        remove_active_piece();
+        activePiece->translate_piece(0, 1);
+        place_active_piece();
+    }
+    else if (keyCode == KEY_CODE_A)
+    {
+        remove_active_piece();
+        activePiece->translate_piece(-1, 0);
+        place_active_piece();
+    }
+    else if (keyCode == KEY_CODE_S)
+    {
+        remove_active_piece();
+        activePiece->translate_piece(0, -1);
+        place_active_piece();
+    }
+    else if (keyCode == KEY_CODE_D)
+    {
+        remove_active_piece();
+        activePiece->translate_piece(1, 0);
+        place_active_piece();
+    }
+    Refresh();
+}
+
 // Place active piece on the Game Board
 void GameBoardFrame::place_active_piece()
 {
@@ -158,4 +203,35 @@ void GameBoardFrame::remove_active_piece()
     gameBoard.set_cell(pointTwo.first, pointTwo.second, 0);
     gameBoard.set_cell(pointThree.first, pointThree.second, 0);
     gameBoard.set_cell(pointFour.first, pointFour.second, 0);   
+}
+
+void GameBoardFrame::translate_active_piece(int x, int y)
+{
+    // ** ADD COLLISIONS
+    // ** ADD WALL KICK
+
+    remove_active_piece();
+    activePiece->translate_piece(x, y);
+    place_active_piece();
+    Refresh();
+}
+
+void GameBoardFrame::rotate_active_piece(int direction)
+{
+    // ** ADD COLLISIONS
+    // ** ADD WALL KICK
+
+    if (direction == CLOCKWISE)
+    {
+        remove_active_piece();
+        activePiece->rotate_piece(CLOCKWISE);
+        place_active_piece();
+    }
+    else if (direction == COUNTERCLOCKWISE)
+    {
+        remove_active_piece();
+        activePiece->rotate_piece(COUNTERCLOCKWISE);
+        place_active_piece();
+    }
+    Refresh();
 }
