@@ -5,6 +5,8 @@
 
 #include "Board.h"
 
+// Default constructor
+// Sets all cells of the 2D array to empty (Default value = 0)
 Board::Board()
 {
     for (int column = 0; column < BOARD_WIDTH; column++)
@@ -18,12 +20,9 @@ Board::Board()
 
 // Return the value at the specified X-Y (column, row) coordinate
 // Returns the value of the cell if within the area of the board, -1 otherwise
-// Throws out_of_range exception if X-Y coordinate is outside boundary of board
+// Throws out_of_range exception if X-Y coordinate is outside the boundaries of board
 int Board::get_cell(int column, int row)
 {
-    // ** DETERMINE WHETHER OR NOT BOUNDARY CONDITIONS SHOULD THROW ERRORS **
-    // IF WE CHECK OUTSIDE BOUNDARY OF BOARD WE SHOULD JUST RETURN -1 AND ASSUME COLLISION
-
     try
     {
         if (column < 0 || column >= BOARD_WIDTH || row < 0 || row >= BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
@@ -41,6 +40,9 @@ int Board::get_cell(int column, int row)
     }
 }
 
+// Set the cell at the specified X-Y (column, row) to the input value
+// Returns the value of the cell if successful,
+// throws out_of_range exception if the X-Y coordinate is outside the boundaries of the board
 int Board::set_cell(int column, int row, int value)
 {
     try
@@ -63,7 +65,7 @@ int Board::set_cell(int column, int row, int value)
 
 // Check if the specified X-Y (column, row) coordinate is empty (value = 0)
 // Returns true if the cell is empty, false otherwise
-// Throws out_of_range exception if X-Y coordinate is outside boundary of board
+// Throws out_of_range exception if X-Y coordinate is outside the boundaries of board
 bool Board::is_cell_empty(int column, int row)
 {
     try

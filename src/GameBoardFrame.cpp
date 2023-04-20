@@ -185,35 +185,10 @@ void GameBoardFrame::remove_active_piece()
 // Translate the active piece in the specified X-Y direction
 void GameBoardFrame::translate_active_piece(int x, int y)
 {
-    // ** ADD CELL COLLISIONS
-    // ** ADD WALL KICK
-
-    if (check_translation_within_board_boundaries(x, y))
+    if (check_translation_within_board_boundaries(x, y) && check_translation_cells_are_empty(x, y))
     {
         remove_active_piece();
         activePiece->translate_piece(x, y);
-        place_active_piece();
-        Refresh();
-    }
-}
-
-// Rotate the active piece in the specified CW/CCW direction
-void GameBoardFrame::rotate_active_piece(int direction)
-{
-    // ** ADD CELL COLLISIONS
-    // ** ADD WALL KICK
-
-    if (direction == CLOCKWISE && check_rotation_within_board_boundaries(CLOCKWISE))
-    {
-        remove_active_piece();
-        activePiece->rotate_piece(CLOCKWISE);
-        place_active_piece();
-        Refresh();
-    }
-    else if (direction == COUNTERCLOCKWISE && check_rotation_within_board_boundaries(COUNTERCLOCKWISE))
-    {
-        remove_active_piece();
-        activePiece->rotate_piece(COUNTERCLOCKWISE);
         place_active_piece();
         Refresh();
     }
@@ -232,6 +207,62 @@ bool GameBoardFrame::check_translation_within_board_boundaries(int x, int y)
             gameBoard.within_board_boundaries(currentPointTwo.first + x, currentPointTwo.second + y) &&
             gameBoard.within_board_boundaries(currentPointThree.first + x, currentPointThree.second + y) &&
             gameBoard.within_board_boundaries(currentPointFour.first + x, currentPointFour.second + y);
+}
+
+// Check that the input X-Y translation for the current active piece does not collide with another inactive board piece
+// Return true if all cells are empty, false otherwise (collision)
+bool GameBoardFrame::check_translation_cells_are_empty(int x, int y)
+{
+    int type = activePiece->get_type();
+
+    std::pair<int, int> currentPointOne = activePiece->get_point_one();
+    std::pair<int, int> currentPointTwo = activePiece->get_point_two();
+    std::pair<int, int> currentPointThree = activePiece->get_point_three();
+    std::pair<int, int> currentPointFour = activePiece->get_point_four();
+
+    gameBoard.set_cell(currentPointOne.first + x, currentPointOne.second + y, 0);
+    gameBoard.set_cell(currentPointTwo.first + x, currentPointTwo.second + y, 0);
+    gameBoard.set_cell(currentPointThree.first + x, currentPointThree.second + y, 0);
+    gameBoard.set_cell(currentPointFour.first + x, currentPointFour.second + y, 0);
+
+    bool areEmpty =     gameBoard.is_cell_empty(currentPointOne.first + x, currentPointOne.second + y) &&
+                        gameBoard.is_cell_empty(currentPointTwo.first + x, currentPointTwo.second + y) &&
+                        gameBoard.is_cell_empty(currentPointThree.first + x, currentPointThree.second + y) &&
+                        gameBoard.is_cell_empty(currentPointFour.first + x, currentPointFour.second + y);
+    
+    gameBoard.set_cell(currentPointOne.first + x, currentPointOne.second + y, type);
+    gameBoard.set_cell(currentPointTwo.first + x, currentPointTwo.second + y, type);
+    gameBoard.set_cell(currentPointThree.first + x, currentPointThree.second + y, type);
+    gameBoard.set_cell(currentPointFour.first + x, currentPointFour.second + y, type);
+
+    return areEmpty;
+}
+
+// Rotate the active piece in the specified CW/CCW direction
+void GameBoardFrame::rotate_active_piece(int direction)
+{
+    if (direction == CLOCKWISE && check_rotation_within_board_boundaries(CLOCKWISE))
+    {
+        // Check rotation collision -> Attempt wall kick(s)
+        if (check_rotation_cells_are_empty(CLOCKWISE))
+        {
+            remove_active_piece();
+            activePiece->rotate_piece(CLOCKWISE);
+            place_active_piece();
+            Refresh();
+        }
+    }
+    else if (direction == COUNTERCLOCKWISE && check_rotation_within_board_boundaries(COUNTERCLOCKWISE))
+    {
+        // Check rotation collision -> Attempt wall kick(s)
+        if (check_rotation_cells_are_empty(COUNTERCLOCKWISE))
+        {
+            remove_active_piece();
+            activePiece->rotate_piece(COUNTERCLOCKWISE);
+            place_active_piece();
+            Refresh();
+        }
+    }
 }
 
 // Check that the input CW/CCW rotation for the current active piece is within the boundaries of the board
@@ -253,4 +284,43 @@ bool GameBoardFrame::check_rotation_within_board_boundaries(int direction)
     activePiece->rotate_piece(direction == CLOCKWISE ? COUNTERCLOCKWISE : CLOCKWISE);
 
     return collision;
+}
+
+// Check that the input X-Y rotation for the current active piece does not collide with another inactive board piece
+// Return true if all cells are empty, false otherwise (collision)
+bool GameBoardFrame::check_rotation_cells_are_empty(int direction)
+{
+    int type = activePiece->get_type();
+
+    std::pair<int, int> currentPointOne = activePiece->get_point_one();
+    std::pair<int, int> currentPointTwo = activePiece->get_point_two();
+    std::pair<int, int> currentPointThree = activePiece->get_point_three();
+    std::pair<int, int> currentPointFour = activePiece->get_point_four();
+
+    gameBoard.set_cell(currentPointOne.first, currentPointOne.second, 0);
+    gameBoard.set_cell(currentPointTwo.first, currentPointTwo.second, 0);
+    gameBoard.set_cell(currentPointThree.first, currentPointThree.second, 0);
+    gameBoard.set_cell(currentPointFour.first, currentPointFour.second, 0);
+
+    activePiece->rotate_piece(direction);
+
+    std::pair<int, int> updatedPointOne = activePiece->get_point_one();
+    std::pair<int, int> updatedPointTwo = activePiece->get_point_two();
+    std::pair<int, int> updatedPointThree = activePiece->get_point_three();
+    std::pair<int, int> updatedPointFour = activePiece->get_point_four();
+
+    bool collision =    gameBoard.is_cell_empty(updatedPointOne.first, updatedPointOne.second) &&
+                        gameBoard.is_cell_empty(updatedPointTwo.first, updatedPointTwo.second) &&
+                        gameBoard.is_cell_empty(updatedPointThree.first, updatedPointThree.second) &&
+                        gameBoard.is_cell_empty(updatedPointFour.first, updatedPointFour.second);
+
+    activePiece->rotate_piece(direction == CLOCKWISE ? COUNTERCLOCKWISE : CLOCKWISE);
+
+    gameBoard.set_cell(currentPointOne.first, currentPointOne.second, type);
+    gameBoard.set_cell(currentPointTwo.first, currentPointTwo.second, type);
+    gameBoard.set_cell(currentPointThree.first, currentPointThree.second, type);
+    gameBoard.set_cell(currentPointFour.first, currentPointFour.second, type);
+
+    return collision;
+
 }

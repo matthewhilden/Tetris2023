@@ -48,9 +48,6 @@ class GameBoardFrame : public wxFrame
 
         GameBoardFrame();
 
-        void place_active_piece();
-        void remove_active_piece();
-
         DECLARE_EVENT_TABLE();
 
     private:
@@ -62,9 +59,14 @@ class GameBoardFrame : public wxFrame
         void OnPaint(wxPaintEvent & event);
         void OnKeyDown(wxKeyEvent & event);
 
-        void translate_active_piece(int x, int y);
-        void rotate_active_piece(int direction);
+        void place_active_piece();
+        void remove_active_piece();
 
+        void translate_active_piece(int x, int y);
         bool check_translation_within_board_boundaries(int x, int y);
+        bool check_translation_cells_are_empty(int x, int y);
+
+        void rotate_active_piece(int direction);
         bool check_rotation_within_board_boundaries(int direction);
+        bool check_rotation_cells_are_empty(int direction);
 };
