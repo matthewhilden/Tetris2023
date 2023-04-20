@@ -9,6 +9,31 @@
 #include "I.h"
 #include "Tetromino.h"
 
+
+// Default Game Conditions
+const bool GAME_BOARD_SPAWN = true;
+
+
+// Custom Colors
+const wxColour ORANGE = wxColor(255, 165, 0);
+const wxColour PURPLE = wxColour(128, 0, 128);
+
+
+// Default Window/Board Size
+const int WINDOW_X_OFFSET = 500;
+const int WINDOW_Y_OFFSET = 25;
+const int WINDOW_WIDTH = 1000;
+const int WINDOW_HEIGHT = 1000;
+const double WINDOW_HEIGHT_RATIO = 0.8;
+const int FRAME_BOARD_HEIGHT = WINDOW_HEIGHT_RATIO * WINDOW_HEIGHT;
+const int FRAME_BOARD_WIDTH = FRAME_BOARD_HEIGHT / 2;
+const int FRAME_BOARD_X_OFFSET = (WINDOW_WIDTH / 2) - (FRAME_BOARD_WIDTH / 2);
+const int FRAME_BOARD_Y_OFFSET = (WINDOW_HEIGHT / 2) - (FRAME_BOARD_HEIGHT / 2);
+const int FRAME_BOARD_CELL_HEIGHT = FRAME_BOARD_HEIGHT / BOARD_HEIGHT;
+const int FRAME_BOARD_CELL_WIDTH = FRAME_BOARD_WIDTH / BOARD_WIDTH;
+
+
+// Default Key Bindings
 const int KEY_CODE_ROTATE_CW = WXK_RIGHT;
 const int KEY_CODE_ROTATE_CCW = WXK_LEFT;
 const int KEY_CODE_W = 87;
@@ -16,28 +41,6 @@ const int KEY_CODE_A = 65;
 const int KEY_CODE_S = 83;
 const int KEY_CODE_D = 68;
 
-
-const bool GAME_BOARD_SPAWN = true;
-
-const wxColour ORANGE = wxColor(255, 165, 0);
-const wxColour PURPLE = wxColour(128, 0, 128);
-
-const int WINDOW_X_OFFSET = 500;
-const int WINDOW_Y_OFFSET = 25;
-
-const int WINDOW_WIDTH = 1000;
-const int WINDOW_HEIGHT = 1000;
-
-const double WINDOW_HEIGHT_RATIO = 0.8;
-
-const int FRAME_BOARD_HEIGHT = WINDOW_HEIGHT_RATIO * WINDOW_HEIGHT;
-const int FRAME_BOARD_WIDTH = FRAME_BOARD_HEIGHT / 2;
-
-const int FRAME_BOARD_X_OFFSET = (WINDOW_WIDTH / 2) - (FRAME_BOARD_WIDTH / 2);
-const int FRAME_BOARD_Y_OFFSET = (WINDOW_HEIGHT / 2) - (FRAME_BOARD_HEIGHT / 2);
-
-const int FRAME_BOARD_CELL_HEIGHT = FRAME_BOARD_HEIGHT / BOARD_HEIGHT;
-const int FRAME_BOARD_CELL_WIDTH = FRAME_BOARD_WIDTH / BOARD_WIDTH;
 
 class GameBoardFrame : public wxFrame
 {
@@ -61,4 +64,7 @@ class GameBoardFrame : public wxFrame
 
         void translate_active_piece(int x, int y);
         void rotate_active_piece(int direction);
+
+        bool check_translation_within_board_boundaries(int x, int y);
+        bool check_rotation_within_board_boundaries(int direction);
 };

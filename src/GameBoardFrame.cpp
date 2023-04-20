@@ -131,49 +131,26 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
     }
 }
 
+// Handler for user input key presses (down key event)
 void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
 {
     int keyCode = event.GetKeyCode();
 
-    // ** SWITCH STATEMENT **
-    
-    if (keyCode == KEY_CODE_ROTATE_CW)
+    switch(keyCode)
     {
-        remove_active_piece();
-        activePiece->rotate_piece(CLOCKWISE);
-        place_active_piece();
+        case KEY_CODE_ROTATE_CW     :   rotate_active_piece(CLOCKWISE);
+                                        break;
+        case KEY_CODE_ROTATE_CCW    :   rotate_active_piece(COUNTERCLOCKWISE);
+                                        break;
+        case KEY_CODE_W             :   translate_active_piece(0, 1);
+                                        break;
+        case KEY_CODE_A             :   translate_active_piece(-1, 0);
+                                        break;
+        case KEY_CODE_S             :   translate_active_piece(0, -1);
+                                        break;
+        case KEY_CODE_D             :   translate_active_piece(1, 0);
+                                        break;
     }
-    else if (keyCode == KEY_CODE_ROTATE_CCW)
-    {
-        remove_active_piece();
-        activePiece->rotate_piece(COUNTERCLOCKWISE);
-        place_active_piece();
-    }
-    else if (keyCode == KEY_CODE_W)
-    {
-        remove_active_piece();
-        activePiece->translate_piece(0, 1);
-        place_active_piece();
-    }
-    else if (keyCode == KEY_CODE_A)
-    {
-        remove_active_piece();
-        activePiece->translate_piece(-1, 0);
-        place_active_piece();
-    }
-    else if (keyCode == KEY_CODE_S)
-    {
-        remove_active_piece();
-        activePiece->translate_piece(0, -1);
-        place_active_piece();
-    }
-    else if (keyCode == KEY_CODE_D)
-    {
-        remove_active_piece();
-        activePiece->translate_piece(1, 0);
-        place_active_piece();
-    }
-    Refresh();
 }
 
 // Place active piece on the Game Board
@@ -205,33 +182,75 @@ void GameBoardFrame::remove_active_piece()
     gameBoard.set_cell(pointFour.first, pointFour.second, 0);   
 }
 
+// Translate the active piece in the specified X-Y direction
 void GameBoardFrame::translate_active_piece(int x, int y)
 {
-    // ** ADD COLLISIONS
+    // ** ADD CELL COLLISIONS
     // ** ADD WALL KICK
 
-    remove_active_piece();
-    activePiece->translate_piece(x, y);
-    place_active_piece();
-    Refresh();
+    if (check_translation_within_board_boundaries(x, y))
+    {
+        remove_active_piece();
+        activePiece->translate_piece(x, y);
+        place_active_piece();
+        Refresh();
+    }
 }
 
+// Rotate the active piece in the specified CW/CCW direction
 void GameBoardFrame::rotate_active_piece(int direction)
 {
-    // ** ADD COLLISIONS
+    // ** ADD CELL COLLISIONS
     // ** ADD WALL KICK
 
-    if (direction == CLOCKWISE)
+    if (direction == CLOCKWISE && check_rotation_within_board_boundaries(CLOCKWISE))
     {
         remove_active_piece();
         activePiece->rotate_piece(CLOCKWISE);
         place_active_piece();
+        Refresh();
     }
-    else if (direction == COUNTERCLOCKWISE)
+    else if (direction == COUNTERCLOCKWISE && check_rotation_within_board_boundaries(COUNTERCLOCKWISE))
     {
         remove_active_piece();
         activePiece->rotate_piece(COUNTERCLOCKWISE);
         place_active_piece();
+        Refresh();
     }
-    Refresh();
+}
+
+// Check that the input X-Y translation for the current active piece is within the boundaries of the board
+// Return true if within the boundaries of the board, false otherwise
+bool GameBoardFrame::check_translation_within_board_boundaries(int x, int y)
+{
+    std::pair<int, int> currentPointOne = activePiece->get_point_one();
+    std::pair<int, int> currentPointTwo = activePiece->get_point_two();
+    std::pair<int, int> currentPointThree = activePiece->get_point_three();
+    std::pair<int, int> currentPointFour = activePiece->get_point_four();
+
+    return  gameBoard.within_board_boundaries(currentPointOne.first + x, currentPointOne.second + y) &&
+            gameBoard.within_board_boundaries(currentPointTwo.first + x, currentPointTwo.second + y) &&
+            gameBoard.within_board_boundaries(currentPointThree.first + x, currentPointThree.second + y) &&
+            gameBoard.within_board_boundaries(currentPointFour.first + x, currentPointFour.second + y);
+}
+
+// Check that the input CW/CCW rotation for the current active piece is within the boundaries of the board
+// Return true if within the boundaries of the board, false otherwise
+bool GameBoardFrame::check_rotation_within_board_boundaries(int direction)
+{
+    activePiece->rotate_piece(direction);
+
+    std::pair<int, int> currentPointOne = activePiece->get_point_one();
+    std::pair<int, int> currentPointTwo = activePiece->get_point_two();
+    std::pair<int, int> currentPointThree = activePiece->get_point_three();
+    std::pair<int, int> currentPointFour = activePiece->get_point_four();
+
+    bool collision =    gameBoard.within_board_boundaries(currentPointOne.first, currentPointOne.second) &&
+                        gameBoard.within_board_boundaries(currentPointTwo.first, currentPointTwo.second) &&
+                        gameBoard.within_board_boundaries(currentPointThree.first, currentPointThree.second) &&
+                        gameBoard.within_board_boundaries(currentPointFour.first, currentPointFour.second); 
+
+    activePiece->rotate_piece(direction == CLOCKWISE ? COUNTERCLOCKWISE : CLOCKWISE);
+
+    return collision;
 }

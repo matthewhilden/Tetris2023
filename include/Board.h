@@ -22,6 +22,8 @@ class Board
         bool is_cell_empty(int column, int row);
         void empty_board();
 
+        bool within_board_boundaries(int column, int row);
+
     private:
 
         int allCells[BOARD_WIDTH][BOARD_HEIGHT + BOARD_HEIGHT_BUFFER];

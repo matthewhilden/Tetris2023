@@ -95,3 +95,16 @@ void Board::empty_board()
         }
     }
 }
+
+// Check if the specified X-Y (column, row) coordinate is within the boundaries of the board
+// Returns true if the coordinate is within the boundaries of the board, false otherwise
+// 0 <= column  < BOARD_WIDTH
+// 0 <= row     < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER
+bool Board::within_board_boundaries(int column, int row)
+{
+    if (column >= 0 && column < BOARD_WIDTH && row >= 0 && row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
+    {
+        return true;
+    }
+    return false;
+}
