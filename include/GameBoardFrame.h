@@ -8,6 +8,7 @@
 #include "Board.h"
 #include "I.h"
 #include "Tetromino.h"
+#include "Wallkick.h"
 
 
 // Default Game Conditions
@@ -69,4 +70,10 @@ class GameBoardFrame : public wxFrame
         void rotate_active_piece(int direction);
         bool check_rotation_within_board_boundaries(int direction);
         bool check_rotation_cells_are_empty(int direction);
+
+        bool rotate_active_piece_with_wall_kick(int direction);
+        bool parse_wallkick_table_state_direction(int rotationState, int direction);
+        bool parse_I_TYPE_wallkick_table_state_direction(int rotationState, int direction);
+
+        bool check_translation_and_rotation(int x, int y, int direction);
 };
