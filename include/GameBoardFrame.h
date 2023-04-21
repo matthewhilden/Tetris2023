@@ -7,6 +7,7 @@
 
 #include "Board.h"
 #include "I.h"
+#include "J.h"
 #include "Tetromino.h"
 #include "Wallkick.h"
 

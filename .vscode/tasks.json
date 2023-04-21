@@ -11,6 +11,7 @@
 				"${workspaceFolder}\\src\\Board.cpp",
 				"${workspaceFolder}\\src\\GameBoardFrame.cpp",
 				"${workspaceFolder}\\src\\I.cpp",
+				"${workspaceFolder}\\src\\J.cpp",
 				"-o",
 				"${workspaceFolder}\\build\\debug\\${fileBasenameNoExtension}.exe",
 				"-I",

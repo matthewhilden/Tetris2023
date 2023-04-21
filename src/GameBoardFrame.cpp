@@ -9,7 +9,7 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     // ** NEED TO HANDLE WINDOW RESIZING **
 
     // Place Starting Piece
-    activePiece = new I();
+    activePiece = new J();
     place_active_piece();
 
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);

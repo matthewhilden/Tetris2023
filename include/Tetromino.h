@@ -21,7 +21,14 @@ class Tetromino
 {
     public:
 
-        virtual bool translate_piece(int x, int y) = 0;
+        virtual bool translate_piece(int x, int y)
+        {
+            pointOne.first += x;        pointOne.second += y;
+            pointTwo.first += x;        pointTwo.second += y;
+            pointThree.first += x;      pointThree.second += y;
+            pointFour.first += x;       pointFour.second += y;
+        };
+        
         virtual bool rotate_piece(int rotation) = 0;
 
         int get_type() { return type; };

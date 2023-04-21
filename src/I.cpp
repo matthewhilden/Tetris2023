@@ -7,22 +7,12 @@
 I::I()
 {
     type = I_TYPE;
-    rotationState = 0;      //  {0, 1 ("Right"), 2, 3 ("Left")}
+    rotationState = 0;
 
-    pointOne = SPAWN_POINT_ONE;
-    pointTwo = SPAWN_POINT_TWO;
-    pointThree = SPAWN_POINT_THREE;
-    pointFour = SPAWN_POINT_FOUR;
-}
-
-// Translate piece in the X-Y coordinate plane in the specified direction
-bool I::translate_piece(int x, int y)
-{
-    pointOne.first += x;        pointOne.second += y;
-    pointTwo.first += x;        pointTwo.second += y;
-    pointThree.first += x;      pointThree.second += y;
-    pointFour.first += x;       pointFour.second += y;
-    return true;
+    pointOne = I_SPAWN_POINT_ONE;
+    pointTwo = I_SPAWN_POINT_TWO;
+    pointThree = I_SPAWN_POINT_THREE;
+    pointFour = I_SPAWN_POINT_FOUR;
 }
 
 // Rotate piece in specified direction, either clockwise or counterclockwise
