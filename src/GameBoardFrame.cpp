@@ -329,6 +329,314 @@ bool GameBoardFrame::rotate_active_piece_with_wall_kick(int direction)
 
 bool GameBoardFrame::parse_wallkick_table_state_direction(int rotationState, int direction)
 {
+    if (direction == CLOCKWISE)
+    {
+        switch(rotationState)
+        {
+            case 0  :   if (check_translation_and_rotation(ZERO_CLOCKWISE_1.first, ZERO_CLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_CLOCKWISE_1.first, ZERO_CLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_CLOCKWISE_2.first, ZERO_CLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_CLOCKWISE_2.first, ZERO_CLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_CLOCKWISE_3.first, ZERO_CLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_CLOCKWISE_3.first, ZERO_CLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_CLOCKWISE_4.first, ZERO_CLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_CLOCKWISE_4.first, ZERO_CLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 1  :   if (check_translation_and_rotation(ONE_CLOCKWISE_1.first, ONE_CLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_CLOCKWISE_1.first, ONE_CLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_CLOCKWISE_2.first, ONE_CLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_CLOCKWISE_2.first, ONE_CLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_CLOCKWISE_3.first, ONE_CLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_CLOCKWISE_3.first, ONE_CLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_CLOCKWISE_4.first, ONE_CLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_CLOCKWISE_4.first, ONE_CLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 2  :   if (check_translation_and_rotation(TWO_CLOCKWISE_1.first, TWO_CLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_CLOCKWISE_1.first, TWO_CLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_CLOCKWISE_2.first, TWO_CLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_CLOCKWISE_2.first, TWO_CLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_CLOCKWISE_3.first, TWO_CLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_CLOCKWISE_3.first, TWO_CLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_CLOCKWISE_4.first, TWO_CLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_CLOCKWISE_4.first, TWO_CLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 3  :   if (check_translation_and_rotation(THREE_CLOCKWISE_1.first, THREE_CLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_CLOCKWISE_1.first, THREE_CLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_CLOCKWISE_2.first, THREE_CLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_CLOCKWISE_2.first, THREE_CLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_CLOCKWISE_3.first, THREE_CLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_CLOCKWISE_3.first, THREE_CLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_CLOCKWISE_4.first, THREE_CLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_CLOCKWISE_4.first, THREE_CLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+        }
+    }
+    else
+    {
+        switch(rotationState)
+        {
+            case 0  :   if (check_translation_and_rotation(ZERO_COUNTERCLOCKWISE_1.first, ZERO_COUNTERCLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_COUNTERCLOCKWISE_1.first, ZERO_COUNTERCLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_COUNTERCLOCKWISE_2.first, ZERO_COUNTERCLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_COUNTERCLOCKWISE_2.first, ZERO_COUNTERCLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_COUNTERCLOCKWISE_3.first, ZERO_COUNTERCLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_COUNTERCLOCKWISE_3.first, ZERO_COUNTERCLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ZERO_COUNTERCLOCKWISE_4.first, ZERO_COUNTERCLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ZERO_COUNTERCLOCKWISE_4.first, ZERO_COUNTERCLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 1  :   if (check_translation_and_rotation(ONE_COUNTERCLOCKWISE_1.first, ONE_COUNTERCLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_COUNTERCLOCKWISE_1.first, ONE_COUNTERCLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_COUNTERCLOCKWISE_2.first, ONE_COUNTERCLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_COUNTERCLOCKWISE_2.first, ONE_COUNTERCLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_COUNTERCLOCKWISE_3.first, ONE_COUNTERCLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_COUNTERCLOCKWISE_3.first, ONE_COUNTERCLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(ONE_COUNTERCLOCKWISE_4.first, ONE_COUNTERCLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(ONE_COUNTERCLOCKWISE_4.first, ONE_COUNTERCLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 2  :   if (check_translation_and_rotation(TWO_COUNTERCLOCKWISE_1.first, TWO_COUNTERCLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_COUNTERCLOCKWISE_1.first, TWO_COUNTERCLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_COUNTERCLOCKWISE_2.first, TWO_COUNTERCLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_COUNTERCLOCKWISE_2.first, TWO_COUNTERCLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_COUNTERCLOCKWISE_3.first, TWO_COUNTERCLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_COUNTERCLOCKWISE_3.first, TWO_COUNTERCLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(TWO_COUNTERCLOCKWISE_4.first, TWO_COUNTERCLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(TWO_COUNTERCLOCKWISE_4.first, TWO_COUNTERCLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+            case 3  :   if (check_translation_and_rotation(THREE_COUNTERCLOCKWISE_1.first, THREE_COUNTERCLOCKWISE_1.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_COUNTERCLOCKWISE_1.first, THREE_COUNTERCLOCKWISE_1.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_COUNTERCLOCKWISE_2.first, THREE_COUNTERCLOCKWISE_2.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_COUNTERCLOCKWISE_2.first, THREE_COUNTERCLOCKWISE_2.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_COUNTERCLOCKWISE_3.first, THREE_COUNTERCLOCKWISE_3.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_COUNTERCLOCKWISE_3.first, THREE_COUNTERCLOCKWISE_3.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        if (check_translation_and_rotation(THREE_COUNTERCLOCKWISE_4.first, THREE_COUNTERCLOCKWISE_4.second, direction))
+                        {
+                            remove_active_piece();
+                            activePiece->translate_piece(THREE_COUNTERCLOCKWISE_4.first, THREE_COUNTERCLOCKWISE_4.second);
+                            activePiece->rotate_piece(direction);
+                            place_active_piece();
+                            Refresh();
+                            break;
+                        }
+                        break;
+        }
+    }
     return false;
 }
 
