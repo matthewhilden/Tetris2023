@@ -1,5 +1,5 @@
 // This file maintains the header for the J class object
-// The I represents an J Tetromino
+// The J represents an J Tetromino
 
 #pragma once
 

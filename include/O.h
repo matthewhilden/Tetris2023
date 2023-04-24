@@ -1,5 +1,5 @@
 // This file maintains the header for the O class object
-// The I represents an O Tetromino
+// The O represents an O Tetromino
 
 #pragma once
 
