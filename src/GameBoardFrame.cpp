@@ -9,7 +9,7 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     // ** NEED TO HANDLE WINDOW RESIZING **
 
     // Place Starting Piece
-    activePiece = new L();
+    activePiece = new S();
     place_active_piece();
 
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);
@@ -21,6 +21,10 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
 void GameBoardFrame::OnPaint(wxPaintEvent & event)
 {
     wxPaintDC dc(this);
+
+    // ** WOULD BE COOL TO ADD SINGLE PIECE TETROMINOS, DON'T FILL IN BETWEEN ADJACENT BLOCKS **
+
+    // ** ADD ABILITY TO UPDATE SINGLE CELL AT A TIME **
 
     dc.SetPen(*wxTRANSPARENT_PEN);
     dc.SetBrush(*wxWHITE_BRUSH);

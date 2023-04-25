@@ -10,6 +10,7 @@
 #include "J.h"
 #include "L.h"
 #include "O.h"
+#include "S.h"
 #include "Tetromino.h"
 #include "Wallkick.h"
 

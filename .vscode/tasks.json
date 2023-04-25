@@ -14,6 +14,7 @@
 				"${workspaceFolder}\\src\\J.cpp",
 				"${workspaceFolder}\\src\\L.cpp",
 				"${workspaceFolder}\\src\\O.cpp",
+				"${workspaceFolder}\\src\\S.cpp",
 				"-o",
 				"${workspaceFolder}\\build\\debug\\${fileBasenameNoExtension}.exe",
 				"-I",
