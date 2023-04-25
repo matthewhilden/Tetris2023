@@ -74,7 +74,6 @@ bool I::rotate_piece(int direction)
                         pointThree.second -= 1;
                         pointFour.first -= 1;    pointFour.second -= 2;
                         rotationState = 2;
-                        break;
         }
     }
     return true;

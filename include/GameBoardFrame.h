@@ -11,6 +11,8 @@
 #include "L.h"
 #include "O.h"
 #include "S.h"
+#include "T.h"
+#include "Z.h"
 #include "Tetromino.h"
 #include "Wallkick.h"
 

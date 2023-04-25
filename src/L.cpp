@@ -67,7 +67,6 @@ bool L::rotate_piece(int direction)
                         pointThree.first -= 1;  pointThree.second -= 1;
                         pointFour.second -= 2;
                         rotationState = 2;
-                        break;
         }
     }
     return true;

@@ -11,8 +11,8 @@ const int J_TYPE = 2;
 const int L_TYPE = 3;
 const int O_TYPE = 4;
 const int S_TYPE = 5;
-const int Z_TYPE = 6;
-const int T_TYPE = 7;
+const int T_TYPE = 6;
+const int Z_TYPE = 7;
 
 const int CLOCKWISE = 0;
 const int COUNTERCLOCKWISE = 1;

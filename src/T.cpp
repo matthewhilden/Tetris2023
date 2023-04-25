@@ -1,23 +1,23 @@
-// This class maintains the implementation for the S class object contained in the S class header file
+// This class maintains the implementation for the T class object contained in the T class header file
 
-#include "S.h"
+#include "T.h"
 
 // Default Constructor
-// Creates a Tetromino of S_TYPE and initial rotationState of 0
-S::S()
+// Creates a Tetromino of T_TYPE and initial rotationState of 0
+T::T()
 {
-    type = S_TYPE;
+    type = T_TYPE;
     rotationState = 0;
 
-    pointOne = S_SPAWN_POINT_ONE;
-    pointTwo = S_SPAWN_POINT_TWO;
-    pointThree = S_SPAWN_POINT_THREE;
-    pointFour = S_SPAWN_POINT_FOUR;
+    pointOne = T_SPAWN_POINT_ONE;
+    pointTwo = T_SPAWN_POINT_TWO;
+    pointThree = T_SPAWN_POINT_THREE;
+    pointFour = T_SPAWN_POINT_FOUR;
 }
 
 // Rotate piece in specified direction, either clockwise or counterclockwise
 // PointTwo is considered the pivot point, and does not move during rotation
-bool S::rotate_piece(int direction)
+bool T::rotate_piece(int direction)
 {
     if (direction == CLOCKWISE)
     {
@@ -25,22 +25,22 @@ bool S::rotate_piece(int direction)
         {
             case 0  :   pointOne.first += 1;    pointOne.second += 1;
                         pointThree.first += 1;  pointThree.second -= 1;
-                        pointFour.second -= 2;
+                        pointFour.first -= 1;   pointFour.second -= 1;
                         rotationState = 1;
                         break;
             case 1  :   pointOne.first += 1;    pointOne.second -= 1;
                         pointThree.first -= 1;  pointThree.second -= 1;
-                        pointFour.first -= 2;
+                        pointFour.first -= 1;   pointFour.second += 1;
                         rotationState = 2;
                         break;
             case 2  :   pointOne.first -= 1;    pointOne.second -= 1;
                         pointThree.first -= 1;  pointThree.second += 1;
-                        pointFour.second += 2;
+                        pointFour.first += 1;   pointFour.second += 1;
                         rotationState = 3;
                         break;
             case 3  :   pointOne.first -= 1;    pointOne.second += 1;
                         pointThree.first += 1;  pointThree.second += 1;
-                        pointFour.first += 2;
+                        pointFour.first += 1;   pointFour.second -= 1;
                         rotationState = 0;
         }
     }
@@ -50,22 +50,22 @@ bool S::rotate_piece(int direction)
         {
             case 0  :   pointOne.first += 1;    pointOne.second -= 1;
                         pointThree.first -= 1;  pointThree.second -= 1;
-                        pointFour.first -= 2;
+                        pointFour.first -= 1;   pointFour.second += 1;
                         rotationState = 3;
                         break;
             case 1  :   pointOne.first -= 1;    pointOne.second -= 1;
                         pointThree.first -= 1;  pointThree.second += 1;
-                        pointFour.second += 2;
+                        pointFour.first += 1;   pointFour.second += 1;
                         rotationState = 0;
                         break;
             case 2  :   pointOne.first -= 1;    pointOne.second += 1;
                         pointThree.first += 1;  pointThree.second += 1;
-                        pointFour.first += 2;
+                        pointFour.first += 1;   pointFour.second -= 1;
                         rotationState = 1;
                         break;
             case 3  :   pointOne.first += 1;    pointOne.second += 1;
                         pointThree.first += 1;  pointThree.second -= 1;
-                        pointFour.second -= 2;
+                        pointFour.first -= 1;   pointFour.second -= 1;
                         rotationState = 2;
         }
     }
