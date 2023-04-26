@@ -55,6 +55,11 @@ class GameBoardFrame : public wxFrame
 
         GameBoardFrame();
 
+        bool move_up();
+        bool move_down();
+        bool move_left();
+        bool move_right();
+
         DECLARE_EVENT_TABLE();
 
     private:
@@ -69,17 +74,10 @@ class GameBoardFrame : public wxFrame
         void place_active_piece();
         void remove_active_piece();
 
-        void translate_active_piece(int x, int y);
-        bool check_translation_within_board_boundaries(int x, int y);
-        bool check_translation_cells_are_empty(int x, int y);
-
-        void rotate_active_piece(int direction);
-        bool check_rotation_within_board_boundaries(int direction);
-        bool check_rotation_cells_are_empty(int direction);
-
-        bool rotate_active_piece_with_wall_kick(int direction);
-        bool parse_wallkick_table_state_direction(int rotationState, int direction);
-        bool parse_I_TYPE_wallkick_table_state_direction(int rotationState, int direction);
-
-        bool check_translation_and_rotation(int x, int y, int direction);
+        bool translate_active_piece(int x, int y);
+        bool rotate_active_piece(int direction);
+        bool rotate_with_wall_kick(int direction);
+        bool rotate_with_wall_kick(int x, int y, int direction);
+        bool rotate_with_I_TYPE_wallkick_table(int direction);
+        bool rotate_with_non_I_TYPE_wallkick_table(int direction);
 };
