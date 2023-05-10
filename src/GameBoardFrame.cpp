@@ -9,11 +9,30 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     // ** NEED TO HANDLE WINDOW RESIZING **
 
     // Place Starting Piece
-    activePiece = new T();
+    generate_bag();
+    set_active_piece();
     place_active_piece();
 
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);
     Show(true);
+}
+
+void GameBoardFrame::generate_bag()
+{
+    for (int pieceType = 1; pieceType <= 7; pieceType++)
+    {
+        bag.push_back(pieceType);
+    }
+
+    std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    srand(time(&now));
+
+    std::shuffle(std::begin(bag), std::end(bag), std::default_random_engine(now));
+}
+
+void GameBoardFrame::empty_bag()
+{
+    bag.erase(bag.begin(), bag.end());
 }
 
 // Full paint functionality for drawing the entire board and contents from blank
@@ -150,7 +169,12 @@ void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
                                         break;
         case KEY_CODE_A             :   move_left();
                                         break;
-        case KEY_CODE_S             :   move_down();
+        case KEY_CODE_S             :   if (!move_down())
+                                        {
+                                            set_active_piece();
+                                            place_active_piece();
+                                            Refresh();
+                                        }
                                         break;
         case KEY_CODE_D             :   move_right();
                                         break;
@@ -183,6 +207,34 @@ bool GameBoardFrame::move_left()
 bool GameBoardFrame::move_right()
 {
     return translate_active_piece(1, 0);
+}
+
+void GameBoardFrame::set_active_piece()
+{
+    if (bag.empty())
+    {
+        generate_bag();
+    }
+    int type = bag.front();
+    switch(type)
+    {
+        activePiece = NULL;
+        case 1 : activePiece = new I();
+                 break;
+        case 2 : activePiece = new J();
+                 break;
+        case 3 : activePiece = new L();
+                 break;
+        case 4 : activePiece = new O();
+                 break;
+        case 5 : activePiece = new S();
+                 break;
+        case 6 : activePiece = new T();
+                 break;
+        case 7 : activePiece = new Z();
+                 break;
+    }
+    bag.erase(bag.begin());
 }
 
 // Place active piece on the Game Board

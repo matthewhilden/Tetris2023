@@ -5,6 +5,11 @@
 #include <wx/wx.h>
 #include <wx/wxprec.h>
 
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <chrono>
+
 #include "Board.h"
 #include "I.h"
 #include "J.h"
@@ -67,10 +72,15 @@ class GameBoardFrame : public wxFrame
         bool visibleSpawn;
         Board gameBoard;
         Tetromino * activePiece;
+        std::vector<int> bag;
 
         void OnPaint(wxPaintEvent & event);
         void OnKeyDown(wxKeyEvent & event);
 
+        void generate_bag();
+        void empty_bag();
+
+        void set_active_piece();
         void place_active_piece();
         void remove_active_piece();
 
