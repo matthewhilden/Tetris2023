@@ -9,14 +9,16 @@ GameBoardFrame::GameBoardFrame() : wxFrame(nullptr, wxID_ANY, "Tetris"), visible
     // ** NEED TO HANDLE WINDOW RESIZING **
 
     // Place Starting Piece
-    generate_bag();
-    set_active_piece();
+    generate_new_active_piece();
     place_active_piece();
 
     SetSize(WINDOW_X_OFFSET, WINDOW_Y_OFFSET, WINDOW_WIDTH, WINDOW_HEIGHT, wxSIZE_AUTO);
     Show(true);
 }
 
+// Generate bag of pieces
+// Generates a random assortment of one of each piece type
+// This guarantees the player gets one of each type before getting duplicate pieces
 void GameBoardFrame::generate_bag()
 {
     for (int pieceType = 1; pieceType <= 7; pieceType++)
@@ -26,10 +28,10 @@ void GameBoardFrame::generate_bag()
 
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     srand(time(&now));
-
     std::shuffle(std::begin(bag), std::end(bag), std::default_random_engine(now));
 }
 
+// Empty the contents of the bag
 void GameBoardFrame::empty_bag()
 {
     bag.erase(bag.begin(), bag.end());
@@ -171,7 +173,8 @@ void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
                                         break;
         case KEY_CODE_S             :   if (!move_down())
                                         {
-                                            set_active_piece();
+                                            remove_full_lines();
+                                            generate_new_active_piece();
                                             place_active_piece();
                                             Refresh();
                                         }
@@ -209,7 +212,10 @@ bool GameBoardFrame::move_right()
     return translate_active_piece(1, 0);
 }
 
-void GameBoardFrame::set_active_piece()
+// Generates the next active piece in sequence
+// Draws from the existing bag, or draws from a new bag if the current
+// bag is empty.
+void GameBoardFrame::generate_new_active_piece()
 {
     if (bag.empty())
     {
@@ -726,4 +732,28 @@ bool GameBoardFrame::rotate_with_wall_kick(int x, int y, int direction)
         place_active_piece();
     }
     return false;
+}
+
+// Removes full lines from the board
+// Shifts the contents of the board down vertically as rows are removed
+// Returns the number of lines (rows) removed
+int GameBoardFrame::remove_full_lines()
+{
+    int removedLines = 0;
+    for (int row = 0; row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER; row++)
+    {
+        if (gameBoard.is_row_full(row))
+        {
+            gameBoard.empty_row(row);
+            for (int current_row = row; current_row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER - 1; current_row++)
+            {
+                for (int column = 0; column < BOARD_WIDTH; column++)
+                {
+                    gameBoard.set_cell(column, current_row, gameBoard.get_cell(column, current_row + 1));
+                }
+            }
+            row--;
+        }
+    }
+    return removedLines;
 }

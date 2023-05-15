@@ -80,7 +80,7 @@ class GameBoardFrame : public wxFrame
         void generate_bag();
         void empty_bag();
 
-        void set_active_piece();
+        void generate_new_active_piece();
         void place_active_piece();
         void remove_active_piece();
 
@@ -90,4 +90,6 @@ class GameBoardFrame : public wxFrame
         bool rotate_with_wall_kick(int x, int y, int direction);
         bool rotate_with_I_TYPE_wallkick_table(int direction);
         bool rotate_with_non_I_TYPE_wallkick_table(int direction);
+
+        int remove_full_lines();
 };

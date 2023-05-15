@@ -110,3 +110,57 @@ bool Board::within_board_boundaries(int column, int row)
     }
     return false;
 }
+
+// Check if the specified row is full
+// Returns true if the entire row is full (non-zero values), false otherwise
+// Throws out_of_range exception if Y coordinate (row) is outside the boundaries of board
+bool Board::is_row_full(int row)
+{
+    try
+    {
+        if (row < 0 || row >= BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
+        {
+            throw std::out_of_range("Out of Range of Board!");
+        }
+        else
+        {
+            for (int column = 0; column < BOARD_WIDTH; column++)
+            {
+                if (allCells[column][row] == EMPTY_CELL)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    catch(const std::exception & e)
+    {
+        std::cerr << e.what() << '\n';
+    }   
+}
+
+// Empty the specified row
+// Sets contents of entire row to zero (empty)
+// Throws out_of_range exception if Y coordinate (row) is outside the boundaries of board
+void Board::empty_row(int row)
+{
+    try
+    {
+        if (row < 0 || row >= BOARD_HEIGHT + BOARD_HEIGHT_BUFFER)
+        {
+            throw std::out_of_range("Out of Range of Board!");
+        }
+        else
+        {
+            for (int column = 0; column < BOARD_WIDTH; column++)
+            {
+                allCells[column][row] = EMPTY_CELL;
+            }
+        }
+    }
+    catch(const std::exception & e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}

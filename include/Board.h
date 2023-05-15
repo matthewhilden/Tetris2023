@@ -23,6 +23,8 @@ class Board
         void empty_board();
 
         bool within_board_boundaries(int column, int row);
+        bool is_row_full(int row);
+        void empty_row(int row);
 
     private:
 
