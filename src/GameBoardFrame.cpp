@@ -745,15 +745,15 @@ int GameBoardFrame::remove_full_lines()
         if (gameBoard.is_row_full(row))
         {
             gameBoard.empty_row(row);
-            for (int current_row = row; current_row < BOARD_HEIGHT + BOARD_HEIGHT_BUFFER - 1; current_row++)
-            {
-                for (int column = 0; column < BOARD_WIDTH; column++)
-                {
-                    gameBoard.set_cell(column, current_row, gameBoard.get_cell(column, current_row + 1));
-                }
-            }
-            row--;
+            removedLines++;
         }
-    }
+        else if (removedLines != 0)
+        {
+            for (int column = 0; column < BOARD_WIDTH; column++)
+            {
+                gameBoard.set_cell(column, row - removedLines, gameBoard.get_cell(column, row));
+            }
+        }
+    } 
     return removedLines;
 }
