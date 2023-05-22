@@ -160,7 +160,7 @@ void GameBoardFrame::OnPaint(wxPaintEvent & event)
 void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
 {
     int keyCode = event.GetKeyCode();
-
+    std::cout << "Key Code: " << keyCode << std::endl;
     switch(keyCode)
     {
         case KEY_CODE_ROTATE_CW     :   rotate_active_piece(CLOCKWISE);
@@ -180,6 +180,12 @@ void GameBoardFrame::OnKeyDown(wxKeyEvent & event)
                                         }
                                         break;
         case KEY_CODE_D             :   move_right();
+                                        break;
+        case KEY_CODE_SPACE         :   hard_drop_active_piece();
+                                        remove_full_lines();
+                                        generate_new_active_piece();
+                                        place_active_piece();
+                                        Refresh();
                                         break;
     }
 }
@@ -314,6 +320,58 @@ bool GameBoardFrame::translate_active_piece(int x, int y)
         place_active_piece();
         return false;
     }
+}
+
+// Translate the active piece in the specified X-Y direction
+// Does not update the GUI
+// Returns true on successful movement, false otherwise
+// Updates the position of the piece on success
+bool GameBoardFrame::translate_active_piece_no_movement(int x, int y)
+{
+    activePiece->translate_piece(x, y);
+
+    std::pair<int, int> updatedPointOne = activePiece->get_point_one();
+    std::pair<int, int> updatedPointTwo = activePiece->get_point_two();
+    std::pair<int, int> updatedPointThree = activePiece->get_point_three();
+    std::pair<int, int> updatedPointFour = activePiece->get_point_four();
+
+    bool withinBoardBoundaries =    gameBoard.within_board_boundaries(updatedPointOne.first, updatedPointOne.second) &&
+                                    gameBoard.within_board_boundaries(updatedPointTwo.first, updatedPointTwo.second) &&
+                                    gameBoard.within_board_boundaries(updatedPointThree.first, updatedPointThree.second) &&
+                                    gameBoard.within_board_boundaries(updatedPointFour.first, updatedPointFour.second);
+    if (withinBoardBoundaries)
+    {
+        bool cellsAreEmpty =    gameBoard.is_cell_empty(updatedPointOne.first, updatedPointOne.second) &&
+                                gameBoard.is_cell_empty(updatedPointTwo.first, updatedPointTwo.second) &&
+                                gameBoard.is_cell_empty(updatedPointThree.first, updatedPointThree.second) &&
+                                gameBoard.is_cell_empty(updatedPointFour.first, updatedPointFour.second);
+        if (cellsAreEmpty)
+        {
+            return true;
+        }
+        else
+        {
+            activePiece->translate_piece(-x, -y);
+            return false;
+        }
+    }
+    else
+    {
+        activePiece->translate_piece(-x, -y);
+        return false;
+    }
+
+}
+
+void GameBoardFrame::hard_drop_active_piece()
+{
+    remove_active_piece();
+    while (translate_active_piece_no_movement(0, -1))
+    {
+
+    }
+    place_active_piece();
+    Refresh();
 }
 
 // Rotate the active piece in the specified CW/CCW direction

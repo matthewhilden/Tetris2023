@@ -52,6 +52,7 @@ const int KEY_CODE_W = 87;
 const int KEY_CODE_A = 65;
 const int KEY_CODE_S = 83;
 const int KEY_CODE_D = 68;
+const int KEY_CODE_SPACE = 32;
 
 
 class GameBoardFrame : public wxFrame
@@ -85,6 +86,8 @@ class GameBoardFrame : public wxFrame
         void remove_active_piece();
 
         bool translate_active_piece(int x, int y);
+        bool translate_active_piece_no_movement(int x, int y);
+        void hard_drop_active_piece();
         bool rotate_active_piece(int direction);
         bool rotate_with_wall_kick(int direction);
         bool rotate_with_wall_kick(int x, int y, int direction);
